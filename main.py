@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from numbers import Number
 
 filename = 'data/catandmouse'
 resolution = 16
@@ -27,9 +28,12 @@ def bottom_right(block):
 
     return [row[width//2:] for row in block[height//2:]]
 
+#grays = ".:-=+*#%@"
+grays = ".'`^\",:;Il!i><~+_-?][}{1)(|\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
+
 def display_block(block):
     for row in block:
-        print("".join("X" if i > 0.5 else "." for i in row))
+        print("".join(grays[int(i*(len(grays)-1))] for i in row))
     print("")
 
 def sum_of_block(block):
@@ -46,7 +50,7 @@ def block_to_tree(block):
     ))
 
 def tree_to_block(tree):
-    if type(tree) == int:
+    if isinstance(tree, Number):
         return [[tree]]
     flattened_tree = list(map(tree_to_block, tree))
 
@@ -59,7 +63,7 @@ def tree_to_block(tree):
 def approx_tree_color(tree):
     if type(tree) == int:
         return tree
-    return sum(map(approx_tree_color, tree)) / 4
+    return sum(map(approx_tree_color, tree)) / 4.0
 
 def tree_at_zoom(tree, level):
     if level == 0:
@@ -70,12 +74,11 @@ def display_tree(tree):
     display_block(tree_to_block(tree))
 
 
-## __main__
+if __name__ == "__main__":
+    with open(filename, 'r') as f:
+        block = [[int(c) for c in row.strip()] for row in f]
 
-with open(filename, 'r') as f:
-    block = [[int(c) for c in row.strip()] for row in f]
+    tree = block_to_tree(block)
 
-tree = block_to_tree(block)
-
-for i in range(0, 5):
-    display_tree(tree_at_zoom(tree, i))
+    for i in range(0, 5):
+        display_tree(tree_at_zoom(tree, i))
