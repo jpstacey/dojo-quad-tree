@@ -50,10 +50,13 @@ def block_to_tree(block):
         return node[0]
     return node
 
-def tree_to_block(tree):
+def tree_to_block(tree, resolution):
     if isinstance(tree, Number):
-        return [[tree]]
-    flattened_tree = [tree_to_block(n) for n in tree]
+        expand = int(2**(resolution))
+        return [[tree]*expand]*expand
+    if resolution == 0:
+        return [[approx_tree_color(tree)]]
+    flattened_tree = [tree_to_block(n, resolution-1) for n in tree]
 
     top_tuples = zip(flattened_tree[3], flattened_tree[0])
     bottom_tuples = zip(flattened_tree[2], flattened_tree[1])
@@ -73,8 +76,8 @@ def tree_at_zoom(tree, level):
         return [tree_at_zoom(tree, level-1)]*4
     return (tree_at_zoom(t, level - 1) for t in tree)
 
-def display_tree(tree):
-    display_block(tree_to_block(tree))
+def display_tree(tree, resolution):
+    display_block(tree_to_block(tree, resolution))
 
 
 if __name__ == "__main__":
@@ -84,4 +87,5 @@ if __name__ == "__main__":
     tree = block_to_tree(block)
 
     for i in range(0, 5):
-        display_tree(tree_at_zoom(tree, i))
+        for j in range(i, 6):
+            display_tree(tree_at_zoom(tree, i), j)
