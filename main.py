@@ -28,9 +28,12 @@ def bottom_right(block):
 
     return [row[width//2:] for row in block[height//2:]]
 
+#grays = ".:-=+*#%@"
+grays = ".'`^\",:;Il!i><~+_-?][}{1)(|\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
+
 def display_block(block):
     for row in block:
-        print("".join("X" if i > 0.5 else "." for i in row))
+        print("".join(grays[int(i*(len(grays)-1))] for i in row))
     print("")
 
 def sum_of_block(block):
