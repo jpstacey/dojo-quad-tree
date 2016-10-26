@@ -39,20 +39,18 @@ def display_block(block):
 def sum_of_block(block):
     return sum(sum(row) for row in block)
 
+CORNERS = (top_right, bottom_right, bottom_left, top_left)
+
 def block_to_tree(block):
     if len(block) == len(block[0]) == 1:
         return block[0][0]
     # Clockwise from top-right.
-    return list(map(
-        block_to_tree,
-        (top_right(block), bottom_right(block),
-         bottom_left(block), top_left(block))
-    ))
+    return [block_to_tree(f(block)) for f in CORNERS]
 
 def tree_to_block(tree):
     if isinstance(tree, Number):
         return [[tree]]
-    flattened_tree = list(map(tree_to_block, tree))
+    flattened_tree = [tree_to_block(n) for n in tree]
 
     top_tuples = zip(flattened_tree[3], flattened_tree[0])
     bottom_tuples = zip(flattened_tree[2], flattened_tree[1])
