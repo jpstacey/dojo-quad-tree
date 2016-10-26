@@ -59,7 +59,7 @@ def tree_to_block(tree):
         [a + b for a, b in bottom_tuples]
 
 def approx_tree_color(tree):
-    if type(tree) == int:
+    if isinstance(tree, Number):
         return tree
     return sum(map(approx_tree_color, tree)) / 4.0
 
