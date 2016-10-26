@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from numbers import Number
 
 filename = 'data/catandmouse'
 resolution = 16
@@ -46,7 +47,7 @@ def block_to_tree(block):
     ))
 
 def tree_to_block(tree):
-    if type(tree) == int:
+    if isinstance(tree, Number):
         return [[tree]]
     flattened_tree = list(map(tree_to_block, tree))
 
