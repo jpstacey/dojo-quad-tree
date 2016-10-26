@@ -45,7 +45,10 @@ def block_to_tree(block):
     if len(block) == len(block[0]) == 1:
         return block[0][0]
     # Clockwise from top-right.
-    return [block_to_tree(f(block)) for f in CORNERS]
+    node = [block_to_tree(f(block)) for f in CORNERS]
+    if all(isinstance(n, Number) and n == node[0] for n in node):
+        return node[0]
+    return node
 
 def tree_to_block(tree):
     if isinstance(tree, Number):
