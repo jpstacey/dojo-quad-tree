@@ -63,7 +63,7 @@ def tree_to_block(tree):
 def approx_tree_color(tree):
     if type(tree) == int:
         return tree
-    return sum(map(approx_tree_color, tree)) / 4
+    return sum(map(approx_tree_color, tree)) / 4.0
 
 def tree_at_zoom(tree, level):
     if level == 0:
