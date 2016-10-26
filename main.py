@@ -74,12 +74,11 @@ def display_tree(tree):
     display_block(tree_to_block(tree))
 
 
-## __main__
+if __name__ == "__main__":
+    with open(filename, 'r') as f:
+        block = [[int(c) for c in row.strip()] for row in f]
 
-with open(filename, 'r') as f:
-    block = [[int(c) for c in row.strip()] for row in f]
+    tree = block_to_tree(block)
 
-tree = block_to_tree(block)
-
-for i in range(0, 5):
-    display_tree(tree_at_zoom(tree, i))
+    for i in range(0, 5):
+        display_tree(tree_at_zoom(tree, i))
