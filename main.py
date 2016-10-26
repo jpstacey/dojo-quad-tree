@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 from numbers import Number
 
-filename = 'data/catandmouse'
-resolution = 16
-
 def top_left(block):
     height = len(block)
     width = len(block[0])
@@ -81,7 +78,9 @@ def display_tree(tree, resolution):
 
 
 if __name__ == "__main__":
-    with open(filename, 'r') as f:
+    from sys import argv
+
+    with open(argv[1], 'r') as f:
         block = [[int(c) for c in row.strip()] for row in f]
 
     tree = block_to_tree(block)
