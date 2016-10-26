@@ -66,6 +66,8 @@ def approx_tree_color(tree):
 def tree_at_zoom(tree, level):
     if level == 0:
         return approx_tree_color(tree)
+    if isinstance(tree, Number):
+        return [tree_at_zoom(tree, level-1)]*4
     return (tree_at_zoom(t, level - 1) for t in tree)
 
 def display_tree(tree):
